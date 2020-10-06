@@ -11,6 +11,7 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
       - './data:/data/db'
+    command: ['--auth']
     ports:
       - 27017:27017
 

@@ -1,21 +1,13 @@
 version: "3"
-services: 
-  mongodb-server:
-    image: 'mongo:3.6.20-xenial'
+services:
+  mongo:
+    image: mongo:latest
     restart: always
-    container_name: 'my-mongo'
-    env_file: .env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
-      MONGO_REGULAR_USER: ${MONGO_REGULAR_USER}
-      MONGO_REGULAR_PASSWORD: ${MONGO_REGULAR_PASSWORD}
-      MONGO_REGULAR_DATABASE: ${MONGO_REGULAR_DATABASE}
-    volumes:
-      - ./db:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    command: ['--auth']
     ports:
-      - 27017:27017
-
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=pastime
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root_password
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro

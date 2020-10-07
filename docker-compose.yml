@@ -9,8 +9,12 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_REGULAR_USER: ${MONGO_REGULAR_USER}
+      MONGO_REGULAR_PASSWORD: ${MONGO_REGULAR_PASSWORD}
+      MONGO_REGULAR_DATABASE: ${MONGO_REGULAR_DATABASE}
     volumes:
-      - './data:/data/db'
+      - ./db:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     command: ['--auth']
     ports:
       - 27017:27017

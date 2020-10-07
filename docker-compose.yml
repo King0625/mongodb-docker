@@ -1,13 +1,19 @@
 version: "3"
-services:
-  mongo:
-    image: mongo:latest
+services: 
+  mongodb-server:
+    image: 'mongo:latest'
     restart: always
     ports:
-      - "27017:27017"
+      - 27017:27017
+    container_name: 'my-mongo'
+    env_file: .env
     environment:
-      - MONGO_INITDB_DATABASE=pastime
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root_password
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_REGULAR_USER: ${MONGO_REGULAR_USER}
+      MONGO_REGULAR_PASSWORD: ${MONGO_REGULAR_PASSWORD}
+      MONGO_REGULAR_DATABASE: ${MONGO_REGULAR_DATABASE}
     volumes:
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./db:/data/db'
